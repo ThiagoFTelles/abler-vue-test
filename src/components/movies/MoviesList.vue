@@ -1,32 +1,39 @@
 <template>
   <section class="movies-container">
-    <div
-      v-if="movies && movies.length"
-      class="movies"
-    >
+    <transition mode="out-in">
       <div
-        v-for="movie in movies"
-        :key="movie.id"
-        class="movie"
+        v-if="movies && movies.length"
+        class="movies"
+        key="movies"
       >
-        <router-link to="/">
-          <img
-            v-if="movie.backdrop_path"
-            :src="`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.backdrop_path}`"
-            :alt="movie.original_title"
-          >
-          <h2 class="title">
-            {{movie.original_title}}
-          </h2>
-        </router-link>
+        <div
+          v-for="movie in movies"
+          :key="movie.id"
+          class="movie"
+        >
+          <router-link to="/">
+            <img
+              v-if="movie.backdrop_path"
+              :src="`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.backdrop_path}`"
+              :alt="movie.original_title"
+            >
+            <h2 class="title">
+              {{movie.original_title}}
+            </h2>
+          </router-link>
+        </div>
       </div>
-    </div>
-    <div v-else-if="movies && movies.length === 0">
-      <p class="without-results">Busca sem resultados. Tente buscar outro termo.</p>
-    </div>
-    <div v-else>
-      <LoadingPage />
-    </div>
+      <div
+        v-else-if="movies && movies.length === 0"
+        key="without-results"
+      >
+        <p class="without-results">Busca sem resultados. Tente buscar outro termo.</p>
+      </div>
+      <LoadingPage
+        v-else
+        key="loading"
+      />
+    </transition>
   </section>
 </template>
 

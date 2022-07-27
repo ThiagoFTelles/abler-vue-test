@@ -11,7 +11,7 @@
           :key="movie.id"
           class="movie"
         >
-          <router-link to="/">
+          <router-link :to="{name: 'movie', params:{id: movie.id} }">
             <img
               v-if="movie.backdrop_path"
               :src="`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.backdrop_path}`"
@@ -51,7 +51,7 @@ export default {
     getMovies() {
       api
         .get(
-          "/movie/popular?api_key=9528e187a9d83ace76fff9ee13f5e837&language=en-US&page=1"
+          "/movie/popular?api_key=9528e187a9d83ace76fff9ee13f5e837&language=pt-BR&page=1"
         )
         .then((r) => {
           this.movies = r.data.results;

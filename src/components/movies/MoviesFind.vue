@@ -1,10 +1,10 @@
 <template>
-
+  <input type="text">
 </template>
 
 <script>
 export default {
-  name: "MoviesList",
+  name: "MoviesFind",
 };
 </script>
 

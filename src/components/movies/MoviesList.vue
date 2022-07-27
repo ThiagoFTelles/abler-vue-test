@@ -29,7 +29,7 @@ export default {
     getMovies() {
       api
         .get(
-          "https://api.themoviedb.org/3/movie/popular?api_key=9528e187a9d83ace76fff9ee13f5e837&language=en-US&page=1"
+          "/movie/popular?api_key=9528e187a9d83ace76fff9ee13f5e837&language=en-US&page=1"
         )
         .then((r) => {
           this.movies = r.data.results;

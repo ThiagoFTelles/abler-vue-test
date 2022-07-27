@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import { api } from "@/services.js";
+
 export default {
   name: "MoviesList",
   data() {
@@ -25,12 +27,12 @@ export default {
   },
   methods: {
     getMovies() {
-      fetch(
-        "https://api.themoviedb.org/3/movie/popular?api_key=9528e187a9d83ace76fff9ee13f5e837&language=en-US&page=1"
-      )
-        .then((r) => r.json())
+      api
+        .get(
+          "https://api.themoviedb.org/3/movie/popular?api_key=9528e187a9d83ace76fff9ee13f5e837&language=en-US&page=1"
+        )
         .then((r) => {
-          this.movies = r.results;
+          this.movies = r.data.results;
         });
     },
   },

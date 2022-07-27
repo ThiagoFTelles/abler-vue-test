@@ -5,6 +5,7 @@
       :key="movie.id"
     >
       <img
+        v-if="movie.backdrop_path"
         :src="`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.backdrop_path}`"
         :alt="movie.original_title"
       >
@@ -34,6 +35,27 @@ export default {
         .then((r) => {
           this.movies = r.data.results;
         });
+    },
+    searchMovies() {
+      api.get(this.searchUrl).then((r) => {
+        this.movies = r.data.results;
+      });
+    },
+  },
+  computed: {
+    searchUrl() {
+      let queryString = "";
+      for (let key in this.$route.query) {
+        queryString += `&${key}=${this.$route.query[key]}`;
+      }
+      return (
+        "/search/movie/?api_key=9528e187a9d83ace76fff9ee13f5e837" + queryString
+      );
+    },
+  },
+  watch: {
+    searchUrl() {
+      this.searchMovies();
     },
   },
   created() {

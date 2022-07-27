@@ -1,19 +1,19 @@
 <template>
   <section>
     <h1>✨ Filmes Populares ✨</h1>
-    <MoviesFind />
+    <MoviesSearch />
     <MoviesList />
   </section>
 </template>
 
 <script>
-import MoviesFind from "@/components/movies/MoviesFind.vue";
+import MoviesSearch from "@/components/movies/MoviesSearch.vue";
 import MoviesList from "@/components/movies/MoviesList.vue";
 
 export default {
   name: "HomeView",
   components: {
-    MoviesFind,
+    MoviesSearch,
     MoviesList,
   },
 };

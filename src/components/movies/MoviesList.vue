@@ -1,17 +1,28 @@
 <template>
   <section class="movies-container">
     <div
-      v-for="movie in movies"
-      :key="movie.id"
+      v-if="movies && movies.length"
+      class="movies"
     >
-      <img
-        v-if="movie.backdrop_path"
-        :src="`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.backdrop_path}`"
-        :alt="movie.original_title"
+      <div
+        v-for="movie in movies"
+        :key="movie.id"
+        class="movie"
       >
-      <h2 class="titulo">
-        {{movie.original_title}}
-      </h2>
+        <router-link to="/">
+          <img
+            v-if="movie.backdrop_path"
+            :src="`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.backdrop_path}`"
+            :alt="movie.original_title"
+          >
+          <h2 class="title">
+            {{movie.original_title}}
+          </h2>
+        </router-link>
+      </div>
+    </div>
+    <div v-else-if="movies.length === 0">
+      <p class="without-results">Busca sem resultados. Tente buscar outro termo.</p>
     </div>
   </section>
 </template>
@@ -64,5 +75,45 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.movies-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.movies {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin: 30px;
+}
+
+.movie {
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(30, 60, 90, 0.1);
+  padding: 10px;
+  transition: all 0.2s;
+}
+.movie img {
+  margin-bottom: 20px;
+}
+.movie:hover {
+  box-shadow: 0 6px 12px rgba(30, 60, 90, 0.2);
+  transform: scale(1.1);
+  z-index: 1;
+}
+
+.movies-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.without-results {
+  text-align: center;
+}
+
+.title {
+  margin-bottom: 10px;
+}
 </style>

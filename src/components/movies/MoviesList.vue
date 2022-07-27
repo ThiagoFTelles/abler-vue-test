@@ -21,8 +21,11 @@
         </router-link>
       </div>
     </div>
-    <div v-else-if="movies.length === 0">
+    <div v-else-if="movies && movies.length === 0">
       <p class="without-results">Busca sem resultados. Tente buscar outro termo.</p>
+    </div>
+    <div v-else>
+      <LoadingPage />
     </div>
   </section>
 </template>
@@ -48,6 +51,7 @@ export default {
         });
     },
     searchMovies() {
+      this.movies = null;
       api.get(this.searchUrl).then((r) => {
         this.movies = r.data.results;
       });

@@ -40,7 +40,9 @@ import { api } from "@/services.js";
 
 export default {
   name: "MovieView",
-  props: ["id"],
+  props: {
+    id: String,
+  },
   data() {
     return {
       movie: null,

@@ -11,10 +11,4 @@ export const api = {
   post(endpoint, body) {
     return axiosInstance.post(endpoint, body);
   },
-  login(endpoint, body) {
-    return axiosInstance.post(endpoint, body);
-  },
-  validateToken(endpoint, body) {
-    return axiosInstance.post(endpoint, body);
-  },
 };

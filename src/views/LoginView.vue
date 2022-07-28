@@ -85,13 +85,11 @@ export default {
             this.$store.dispatch("updateSessionId", r.data.session_id);
             this.loginUser();
           });
-        this.$router.push({ name: "user" });
       } catch (e) {
         console.log(e);
       }
     },
   },
-  watch: {},
   beforeCreate() {
     if (this.$store.state.login) {
       this.$router.push({ name: "user" });

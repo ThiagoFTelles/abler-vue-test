@@ -26,17 +26,8 @@ export default new Vuex.Store({
     UPDATE_USER(state, payload) {
       state.user = Object.assign({}, state.user, payload);
     },
-    UPDATE_REQUEST_TOKEN(state, payload) {
-      state.requestToken = payload;
-    },
-    ADD_USUARIO_PRODUTOS(state, payload) {
-      state.usuario_produtos.unshift(payload);
-    },
   },
   actions: {
-    updateRequestToken(context, payload) {
-      context.commit('UPDATE_REQUEST_TOKEN', payload);
-    },
     updateLogin(context, payload) {
       context.commit('UPDATE_LOGIN', payload);
     },
@@ -53,21 +44,5 @@ export default new Vuex.Store({
           context.commit('UPDATE_LOGIN', true);
         });
     },
-    getUserLists({ state, commit }) {
-      return api
-        .get(`/produto?user_id=${state.usuario.id}&_limit=100`)
-        .then((response) => {
-          commit('UPDATE_USUARIO_PRODUTOS', response.data.data);
-        });
-    },
-    // loginUser(context) {
-    //   return api
-    //     .get(
-    //       '/authentication/token/new?api_key=9528e187a9d83ace76fff9ee13f5e837',
-    //     )
-    //     .then((r) => {
-    //       context.commit('UPDATE_REQUEST_TOKEN', r.data.request_token);
-    //     });
-    // },
   },
 });

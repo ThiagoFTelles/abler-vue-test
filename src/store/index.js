@@ -24,7 +24,6 @@ export default new Vuex.Store({
       state.sessionId = payload;
     },
     UPDATE_USER(state, payload) {
-      console.log('UPDATE_USER ' + payload);
       state.user = Object.assign({}, state.user, payload);
     },
     UPDATE_REQUEST_TOKEN(state, payload) {

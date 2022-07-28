@@ -1,16 +1,24 @@
 <template>
   <div>
-    {{userCreatedLists}}
     <h1>Olá {{user.name ? user.name : user.username}}</h1>
-    <div
-      v-for="(list, index) in userCreatedLists"
-      :key="index"
-    >
-      <p>
-        {{list.name}}
-      </p>
-      <p>{{list.description}}</p>
+    <div v-if="userCreatedLists">
+      <div
+        class="list"
+        v-for="(list, index) in userCreatedLists"
+        :key="index"
+      >
+        <h3 class="name">
+          {{list.name}}
+        </h3>
+        <p class="description">{{list.description}}</p>
+        <!-- <div
+          class="btn"
+          @click="listDetails(list.id)"
+        >Detalhes</div> -->
+      </div>
     </div>
+    <p v-else>Você não criou nenhuma lista no DMDB</p>
+
   </div>
 </template>
 
@@ -23,7 +31,19 @@ export default {
   data() {
     return {
       userCreatedLists: null,
+      details: [],
     };
+  },
+  methods: {
+    async listDetails(id) {
+      await api
+        .get(
+          `/list/${id}?api_key=9528e187a9d83ace76fff9ee13f5e837&language=pt-BR`
+        )
+        .then((r) => {
+          this.details = r.data.items;
+        });
+    },
   },
   computed: {
     ...mapState({
@@ -46,8 +66,21 @@ export default {
       console.log(e);
     }
   },
+  beforeCreate() {
+    if (!this.$store.state.login) {
+      this.$router.push({ name: "login" });
+    }
+  },
 };
 </script>
 
-<style>
+<style scoped>
+h1 {
+  text-align: center;
+  margin: 20px;
+}
+
+.list {
+  padding: 10px 20px;
+}
 </style>

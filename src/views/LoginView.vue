@@ -18,7 +18,7 @@
       >
       <button
         class="btn"
-        @click.prevent="login"
+        @click.prevent="getRequestToken"
       >Logar</button>
     </form>
     <p class="lost">
@@ -31,19 +31,71 @@
 </template>
 
 <script>
+import { api } from "@/services.js";
+
 export default {
   name: "LoginView",
   data() {
     return {
+      requestToken: "",
       login: {
         username: "",
         password: "",
-        request_token: "",
       },
     };
   },
   methods: {
-    logar() {},
+    loginUser() {
+      this.$store.dispatch("updateLogin", true);
+      this.$router.push({ name: "user" });
+    },
+    getRequestToken() {
+      api
+        .get(
+          "/authentication/token/new?api_key=9528e187a9d83ace76fff9ee13f5e837"
+        )
+        .then((r) => {
+          this.requestToken = r.data.request_token;
+          this.ValidateRequestToken();
+        });
+    },
+    ValidateRequestToken() {
+      let requestBody = {
+        username: this.login.username,
+        password: this.login.password,
+        request_token: this.requestToken,
+      };
+      api
+        .post(
+          "/authentication/token/validate_with_login?api_key=9528e187a9d83ace76fff9ee13f5e837",
+          requestBody
+        )
+        .then(() => {
+          this.getSessionId();
+        });
+    },
+    async getSessionId() {
+      try {
+        await api
+          .post(
+            "/authentication/session/new?api_key=9528e187a9d83ace76fff9ee13f5e837",
+            { request_token: this.requestToken }
+          )
+          .then((r) => {
+            this.$store.dispatch("updateSessionId", r.data.session_id);
+            this.loginUser();
+          });
+        this.$router.push({ name: "user" });
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  },
+  watch: {},
+  beforeCreate() {
+    if (this.$store.state.login) {
+      this.$router.push({ name: "user" });
+    }
   },
 };
 </script>

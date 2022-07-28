@@ -10,6 +10,14 @@
       >
     </router-link>
     <router-link
+      v-if="name"
+      to="/user"
+      class="btn"
+    >
+      {{name}}
+    </router-link>
+    <router-link
+      v-else
       class="btn"
       to="/login"
     >
@@ -19,8 +27,19 @@
 </template>
 
 <script>
+// import { api } from "@/services.js";
+
 export default {
   name: "TheHeader",
+  methods: {},
+  computed: {
+    name() {
+      return this.$store.state.user.name
+        ? this.$store.state.user.name.replace(/ .*/, "")
+        : this.$store.state.user.username;
+    },
+  },
+  watch: {},
 };
 </script>
 

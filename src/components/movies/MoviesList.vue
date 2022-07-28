@@ -13,12 +13,12 @@
         >
           <router-link :to="{name: 'movie', params:{id: movie.id} }">
             <img
-              v-if="movie.backdrop_path"
-              :src="`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.backdrop_path}`"
-              :alt="movie.original_title"
+              v-if="movie.poster_path"
+              :src="`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}`"
+              :alt="movie.title"
             >
             <h2 class="title">
-              {{movie.original_title}}
+              {{movie.title}}
             </h2>
           </router-link>
         </div>
@@ -107,7 +107,7 @@ export default {
   transition: all 0.2s;
 }
 .movie img {
-  margin-bottom: 20px;
+  margin: 10px auto;
 }
 .movie:hover {
   box-shadow: 0 6px 12px rgba(30, 60, 90, 0.2);
@@ -126,5 +126,6 @@ export default {
 
 .title {
   margin-bottom: 10px;
+  text-align: center;
 }
 </style>

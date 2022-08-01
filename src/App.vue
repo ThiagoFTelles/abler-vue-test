@@ -21,12 +21,14 @@ export default {
   },
 };
 </script>
+
+
+<style>
 @font-face {
   font-family: Avenir;
   src: url("./assets/fonts/Avenir-Medium.ttf");
 }
 
-<style>
 * {
   box-sizing: border-box;
 }
